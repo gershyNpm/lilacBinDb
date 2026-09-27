@@ -80,7 +80,7 @@ export class BinDb extends Flower {
     for (const { mode, baseKey, lambda } of this.accessors) {
       
       const rolePetal = await lambda.getPetals().then(p => p.find(p => p.getType() === 'awsIamRole')!);
-      const lambdaPolicyName = `lambdaStorage${phrasing('camel->kamel', lambda.getName())}${phrasing('camel->kamel', this.name)}`;
+      const lambdaPolicyName = `lambdaBinDb${phrasing('camel->kamel', lambda.getName())}${phrasing('camel->kamel', this.name)}`;
       const lambdaPolicy = addPetal(new PetalTerraform.Resource('awsIamPolicy', lambdaPolicyName, {
         name: `${this.garden.pfx}-${lambdaPolicyName}`,
         policy: tf.json(aws.capitalKeys({ version: '2012-10-17', statement: [{
